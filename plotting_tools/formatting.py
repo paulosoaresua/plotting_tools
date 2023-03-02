@@ -8,13 +8,13 @@ class CustomWidth(Enum):
     RESEARCH_NOTEBOOK = "research_notebook"
 
 
-def calculate_best_figure_dimensions(width: Union[CustomWidth, float], fraction=1, subplots=(1, 1)):
+def calculate_best_figure_dimensions(document_width: Union[CustomWidth, float], fraction=1, subplots=(1, 1)):
     """Set figure dimensions to avoid scaling in LaTeX.
     From: https://jwalton.info/Embed-Publication-Matplotlib-Latex/
 
     Parameters
     ----------
-    width: Union[str, float]
+    document_width: Union[str, float]
             Document textwidth or columnwidth in pts. Predefined strings are also acceptable.
     fraction: float, optional
             Fraction of the width which you wish the figure to occupy
@@ -26,16 +26,16 @@ def calculate_best_figure_dimensions(width: Union[CustomWidth, float], fraction=
     fig_dim: tuple
             Dimensions of figure in inches
     """
-    if isinstance(width, CustomWidth):
+    if isinstance(document_width, CustomWidth):
         # The widthts below were retrieved from proper latex files with the command: \showthe\textwidth
-        if width == CustomWidth.THESIS:
+        if document_width == CustomWidth.THESIS:
             width_pt = 433.62
-        elif width == CustomWidth.RESEARCH_NOTEBOOK:
+        elif document_width == CustomWidth.RESEARCH_NOTEBOOK:
             width_pt = 304.44
         else:
-            raise Exception(f"Width not supported {width.}")
+            raise Exception(f"Width not supported {document_width.value}.")
     else:
-        width_pt = width
+        width_pt = document_width
 
     # Width of figure (in pts)
     fig_width_pt = width_pt * fraction
