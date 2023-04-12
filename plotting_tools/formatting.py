@@ -8,7 +8,7 @@ WIDTH_DICT = {
 }
 
 
-def calculate_best_figure_dimensions(document_width: Union[str, float], fraction=1, subplots=(1, 1)):
+def calculate_best_figure_dimensions(document_width: Union[str, float], scale=1, subplots=(1, 1)):
     """Set figure dimensions to avoid scaling in LaTeX.
     From: https://jwalton.info/Embed-Publication-Matplotlib-Latex/
 
@@ -16,7 +16,7 @@ def calculate_best_figure_dimensions(document_width: Union[str, float], fraction
     ----------
     document_width: Union[str, float]
             Document textwidth or columnwidth in pts. Predefined strings are also acceptable.
-    fraction: float, optional
+    scale: float, optional
             Fraction of the width which you wish the figure to occupy
     subplots: array-like, optional
             The number of rows and columns of subplots.
@@ -34,7 +34,7 @@ def calculate_best_figure_dimensions(document_width: Union[str, float], fraction
         width_pt = document_width
 
     # Width of figure (in pts)
-    fig_width_pt = width_pt * fraction
+    fig_width_pt = width_pt * scale
 
     # Convert from pt to inches
     inches_per_pt = 1 / 72.27
