@@ -1,14 +1,14 @@
 from typing import Union
 
-from enum import Enum
+# The widths below were retrieved from proper latex files with the command: \showthe\textwidth
+WIDTH_DICT = {
+    "thesis": 433.62,
+    "research_notebook": 433.62,
+    "neurips": 397.48,
+}
 
 
-class CustomWidth(Enum):
-    THESIS = "thesis"
-    RESEARCH_NOTEBOOK = "research_notebook"
-
-
-def calculate_best_figure_dimensions(document_width: Union[CustomWidth, float], fraction=1, subplots=(1, 1)):
+def calculate_best_figure_dimensions(document_width: Union[str, float], fraction=1, subplots=(1, 1)):
     """Set figure dimensions to avoid scaling in LaTeX.
     From: https://jwalton.info/Embed-Publication-Matplotlib-Latex/
 
@@ -26,14 +26,10 @@ def calculate_best_figure_dimensions(document_width: Union[CustomWidth, float], 
     fig_dim: tuple
             Dimensions of figure in inches
     """
-    if isinstance(document_width, CustomWidth):
-        # The widthts below were retrieved from proper latex files with the command: \showthe\textwidth
-        if document_width == CustomWidth.THESIS:
-            width_pt = 433.62
-        elif document_width == CustomWidth.RESEARCH_NOTEBOOK:
-            width_pt = 304.44
-        else:
-            raise Exception(f"Width not supported {document_width.value}.")
+    if isinstance(document_width, str):
+        width_pt = WIDTH_DICT.get(document_width, None)
+        if width_pt is None:
+            raise Exception(f"Width {document_width} not supported. Available custom widths are {WIDTH_DICT}")
     else:
         width_pt = document_width
 

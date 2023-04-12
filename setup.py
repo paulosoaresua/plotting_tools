@@ -5,5 +5,5 @@ from setuptools import setup, find_packages
 setup(
     name="plotting_tools",
     packages=find_packages(),
-    package_data={"": []}
+    package_data={"": ["*.mplstyle"]}
 )
