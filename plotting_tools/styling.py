@@ -1,3 +1,4 @@
+from glob import glob
 import os.path as path
 import matplotlib as mpl
 from pathlib import Path
@@ -16,6 +17,6 @@ def configure_environment():
     styles_dir = Path(__file__).parent / "resources/mplstyles"
 
     print(f"Coppying styles to {target_dir}.")
-    for i, file in enumerate(Path(styles_dir).iterdir()):
+    for i, file in enumerate(glob(f"{styles_dir}/*.mplstyle")):
         print(f"{i+1}: {file}")
         shutil.copy(file, target_dir)
